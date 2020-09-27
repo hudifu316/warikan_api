@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  warikan-db:
+    build: ./database/
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./database/initdb:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminadmin

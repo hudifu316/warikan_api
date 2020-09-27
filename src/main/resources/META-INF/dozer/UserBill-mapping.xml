@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mappings
+	xmlns="http://dozermapper.github.io/schema/bean-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://dozermapper.github.io/schema/bean-mapping
+          https://dozermapper.github.io/schema/bean-mapping.xsd">
+	<configuration>
+		<stop-on-errors>true</stop-on-errors>
+		<wildcard>true</wildcard>
+		<custom-converters>
+			<!-- these are always bi-directional -->
+			<converter
+				type="com.cosa2.warikan_api.common.util.UserBillToUserBillDtoConverter">
+				<class-a>com.cosa2.warikan_api.domain.model.UserBill</class-a>
+				<class-b>com.cosa2.warikan_api.web.UserBillUpdateDto</class-b>
+			</converter>
+		</custom-converters>
+	</configuration>
+	<mapping map-empty-string="false" map-null="false">
+		<class-a>com.cosa2.warikan_api.domain.model.UserBill</class-a>
+		<class-b>com.cosa2.warikan_api.web.UserBillUpdateDto</class-b>
+		<field>
+			<a>user.userId</a>
+			<b>userId</b>
+		</field>
+		<field>
+			<a>user.username</a>
+			<b>username</b>
+		</field>
+		<field>
+			<a>kanji</a>
+			<b>kanji</b>
+		</field>
+	</mapping>
+	<mapping map-empty-string="false" map-null="false">
+		<class-a>com.cosa2.warikan_api.domain.model.Bill</class-a>
+		<class-b>com.cosa2.warikan_api.web.BillUpdateDto</class-b>
+		<field>
+			<a>billId</a>
+			<b>billId</b>
+		</field>
+		<field>
+			<a>users</a>
+			<b>users</b>
+		</field>
+	</mapping>
+</mappings>
