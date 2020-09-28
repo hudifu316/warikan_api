@@ -19,7 +19,7 @@ public class UserBillToUserBillDtoConverter extends DozerConverter<UserBill, Use
 		if(source == null) {
 			return null;
 		}
-		return new UserBillUpdateDto(source.getUser().getUserId(), source.getUser().getUsername(), source.isKanji());
+		return new UserBillUpdateDto(source.getUser().getUserId(), source.getUser().getUsername(), source.isKanji(), source.getPayAmount());
 	}
 
 	@Override
