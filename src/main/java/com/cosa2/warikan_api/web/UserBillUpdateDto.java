@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 import javax.persistence.Id;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -24,10 +27,14 @@ public class UserBillUpdateDto {
 	@NotNull
 	private UUID userId;
 
+	@Size(max = 20)
 	private String username;
 
+	@NotNull
 	private boolean kanji;
 
+	@DecimalMin("0")
+	@DecimalMax("2147483647")
 	private BigDecimal payAmount;
 
 }
