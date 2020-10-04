@@ -11,14 +11,14 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
 @Data
 public class BillCreateDto {
 
-	@Size(max = 255)
+	@Size(max = 250)
 	@NotNull
 	private String activityName;
 
@@ -27,7 +27,7 @@ public class BillCreateDto {
 	@NotNull
 	private BigDecimal billingAmount;
 
-	@DateTimeFormat(pattern = "yyyyMMdd")
+	@JsonFormat(pattern = "yyyyMMdd")
 	private Date activityDate;
 
 	@Valid

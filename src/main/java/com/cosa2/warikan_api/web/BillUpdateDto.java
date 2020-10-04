@@ -13,7 +13,7 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
@@ -24,7 +24,7 @@ public class BillUpdateDto {
 	@NotNull
 	private UUID billId;
 
-	@Size(max = 255)
+	@Size(max = 250)
 	@NotNull
 	private String activityName;
 
@@ -33,7 +33,7 @@ public class BillUpdateDto {
 	@NotNull
 	private BigDecimal billingAmount;
 
-	@DateTimeFormat(pattern = "yyyyMMdd")
+	@JsonFormat(pattern = "yyyyMMdd")
 	private Date activityDate;
 
 	@Valid
