@@ -3,6 +3,8 @@ package com.cosa2.warikan_api.web;
 import java.util.UUID;
 
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 import lombok.Data;
 
@@ -26,8 +28,10 @@ public class UserBillCreateDto {
 	@Id
 	private UUID userId;
 
+	@Size(max = 20)
 	private String username;
 
+	@NotNull
 	private boolean kanji;
 
 }

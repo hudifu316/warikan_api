@@ -3,8 +3,11 @@ package com.cosa2.warikan_api.web;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,8 +30,9 @@ public class UserController {
 	Mapper mapper;
 
 	@PostMapping
+	@Validated
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserUpdateDto postUser(@RequestBody UserCreateDto dto) {
+	public UserUpdateDto postUser(@RequestBody @Valid UserCreateDto dto) {
 		User user = mapper.map(dto, User.class);
 		user = userRepository.save(user);
 		return mapper.map(user, UserUpdateDto.class);
