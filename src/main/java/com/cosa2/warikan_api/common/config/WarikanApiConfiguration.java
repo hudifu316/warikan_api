@@ -8,7 +8,8 @@ import org.springframework.core.io.Resource;
 import com.github.dozermapper.spring.DozerBeanMapperFactoryBean;
 
 @Configuration
-public class MappingConfiguration {
+public class WarikanApiConfiguration {
+
 	@Bean
 	public DozerBeanMapperFactoryBean dozerBeanMapperFactoryBean(
 			@Value("classpath*:/META-INF/dozer/**/*-mapping.xml") Resource[] resources) throws Exception {
