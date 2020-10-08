@@ -13,8 +13,17 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cosa2.warikan_api.common.exception.UserBillException;
 import com.cosa2.warikan_api.domain.model.Bill;
 import com.cosa2.warikan_api.domain.model.UserBill;
+import com.cosa2.warikan_api.domain.repository.UserRepository;
 import com.cosa2.warikan_api.domain.service.UserBillService;
 import com.github.dozermapper.core.Mapper;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 
 @RestController
 @RequestMapping("/warikan")
@@ -26,13 +35,24 @@ public class UserBillController {
 	@Autowired
 	Mapper mapper;
 
+	@Autowired
+	UserRepository userRepository;
+
 	@PostMapping
+	@ApiResponses(value= {
+			@ApiResponse(responseCode="201", description="成功", content= {@Content(mediaType = "application/json", schema=@Schema(implementation=BillUpdateDto.class))}),
+			@ApiResponse(responseCode="400", description="失敗", content= {@Content(mediaType = "application/json", schema=@Schema(implementation=ErrorResponse.class))}),
+	})
 	@ResponseStatus(HttpStatus.CREATED)
-	public BillUpdateDto postBill(@RequestBody @Valid BillCreateDto billCreateDTO) {
-		// Check only User.UUID or User.name is setted.
+	@Operation(summary = "割り勘を作成する", description="ユーザごとの割り勘額をJSONで返却する。ユーザは存在しなければ新規に作成する", tags="bills")
+	public BillUpdateDto postBill(@Parameter(description="割り勘金額と割り勘するユーザの情報を指定") @Valid @RequestBody BillCreateDto billCreateDTO) {
+		// Check only User.UUID or User.name is set.
 		for (UserBillCreateDto user : billCreateDTO.getUsers()) {
 			if (user.getUserId() != null && user.getUsername() != null) {
 				throw new UserBillException("only User.UUID or User.name can be setted.");
+			}
+			if (user.getUserId() != null && !userRepository.existsById(user.getUserId())) {
+				throw new UserBillException("User.UUID does not exist.");
 			}
 		}
 

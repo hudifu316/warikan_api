@@ -13,10 +13,16 @@ import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.validation.annotation.Validated;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+@Schema(description="割り勘レスポンス")
+@Validated
 @Data
 public class BillUpdateDto {
 
@@ -33,7 +39,8 @@ public class BillUpdateDto {
 	@NotNull
 	private BigDecimal billingAmount;
 
-	@JsonFormat(pattern = "yyyyMMdd")
+	@JsonFormat(pattern = "yyyy-MM-dd")
+	@Schema(type="string" ,format = "date", example = "2020-02-17")
 	private Date activityDate;
 
 	@Valid
