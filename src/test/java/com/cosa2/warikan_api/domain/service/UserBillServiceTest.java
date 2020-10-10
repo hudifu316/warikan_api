@@ -16,7 +16,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import com.cosa2.warikan_api.common.exception.UserBillException;
 import com.cosa2.warikan_api.domain.model.Bill;
 import com.cosa2.warikan_api.domain.model.UserBill;
-import com.cosa2.warikan_api.web.BillCreateDto;
+import com.cosa2.warikan_api.web.BillCreateReq;
 import com.cosa2.warikan_api.web.UserBillCreateDto;
 
 @SpringBootTest
@@ -27,7 +27,7 @@ class UserBillServiceTest {
 
 	@Test
 	void normal_success() {// 通常成功ケース
-		BillCreateDto billCreation = new BillCreateDto();
+		BillCreateReq billCreation = new BillCreateReq();
 		billCreation.setBill("normal_success", new BigDecimal("99999991"), new Date());
 
 		billCreation.setUsers(_createUsers(3, 0));
@@ -56,7 +56,7 @@ class UserBillServiceTest {
 
 	@Test
 	void warizan_seido1() { // billingAmount < user.count
-		BillCreateDto billCreation = new BillCreateDto();
+		BillCreateReq billCreation = new BillCreateReq();
 		billCreation.setBill("warizan_seido1", new BigDecimal("2"), new Date());
 
 		billCreation.setUsers(_createUsers(3, 1));
@@ -85,7 +85,7 @@ class UserBillServiceTest {
 
 	@Test
 	void warizan_seido2() { // billingAmount = 0
-		BillCreateDto billCreation = new BillCreateDto();
+		BillCreateReq billCreation = new BillCreateReq();
 		billCreation.setBill("warizan_seido2", new BigDecimal("0"), new Date());
 
 		billCreation.setUsers(_createUsers(3, 1));
@@ -114,7 +114,7 @@ class UserBillServiceTest {
 
 	@Test
 	void user_count_check() {// user==0
-		BillCreateDto billCreation = new BillCreateDto();
+		BillCreateReq billCreation = new BillCreateReq();
 		billCreation.setBill("user_count_check", new BigDecimal("100000"), new Date());
 
 		assertThatThrownBy(() -> {
@@ -124,7 +124,7 @@ class UserBillServiceTest {
 
 	@Test
 	void kanji_flag_check_2() {// kanji.count > 1
-		BillCreateDto billCreation = new BillCreateDto();
+		BillCreateReq billCreation = new BillCreateReq();
 		billCreation.setBill("kanji_flag_check_2", new BigDecimal("0"), new Date());
 		List<UserBillCreateDto> users = new ArrayList<>();
 
@@ -141,7 +141,7 @@ class UserBillServiceTest {
 
 	@Test
 	void kanji_flag_check_0() {
-		BillCreateDto billCreation = new BillCreateDto();
+		BillCreateReq billCreation = new BillCreateReq();
 		billCreation.setBill("kanji_flag_check_0", new BigDecimal("0"), new Date());
 		List<UserBillCreateDto> users = new ArrayList<>();
 

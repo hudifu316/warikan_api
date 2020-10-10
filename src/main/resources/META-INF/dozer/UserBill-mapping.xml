@@ -34,7 +34,7 @@
 	</mapping>
 	<mapping map-empty-string="false" map-null="false">
 		<class-a>com.cosa2.warikan_api.domain.model.Bill</class-a>
-		<class-b>com.cosa2.warikan_api.web.BillUpdateDto</class-b>
+		<class-b>com.cosa2.warikan_api.web.BillCreateRes</class-b>
 		<field>
 			<a>billId</a>
 			<b>billId</b>

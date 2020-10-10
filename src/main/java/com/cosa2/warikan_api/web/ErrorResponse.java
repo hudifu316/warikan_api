@@ -40,7 +40,7 @@ public class ErrorResponse {
 
 		@JsonInclude(JsonInclude.Include.NON_NULL)
 		@JsonProperty("Errors")
-		private MultiValueMap<String, String> errors;
+		private final MultiValueMap<String, String> errors;
 	}
 
 }

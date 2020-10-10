@@ -6,8 +6,11 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.validation.annotation.Validated;
+
 import lombok.Data;
 
+@Validated
 @Data
 public class UserBillCreateDto {
 
