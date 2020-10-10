@@ -6,13 +6,18 @@ import java.util.UUID;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.springframework.validation.annotation.Validated;
+
 import com.cosa2.warikan_api.domain.model.UserBill;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+@Schema(description="ユーザ作成レスポンス")
+@Validated
 @Data
-public class UserUpdateDto {
+public class UserCreateRes {
 
 	@NotNull
 	private UUID userId;

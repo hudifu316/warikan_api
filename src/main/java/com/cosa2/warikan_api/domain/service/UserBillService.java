@@ -14,7 +14,7 @@ import com.cosa2.warikan_api.domain.model.User;
 import com.cosa2.warikan_api.domain.model.UserBill;
 import com.cosa2.warikan_api.domain.repository.BillRepository;
 import com.cosa2.warikan_api.domain.repository.UserRepository;
-import com.cosa2.warikan_api.web.BillCreateDto;
+import com.cosa2.warikan_api.web.BillCreateReq;
 import com.cosa2.warikan_api.web.UserBillCreateDto;
 import com.github.dozermapper.core.Mapper;
 
@@ -31,7 +31,7 @@ public class UserBillService {
 	@Autowired
 	Mapper mapper;
 
-	public Bill warikan(BillCreateDto billCreation) {
+	public Bill warikan(BillCreateReq billCreation) {
 		Bill bill;
 		List<User> users = new ArrayList<>();
 

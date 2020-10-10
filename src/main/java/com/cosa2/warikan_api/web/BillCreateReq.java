@@ -15,20 +15,19 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Schema(description="割り勘作成リクエスト")
+@Schema(description = "割り勘作成リクエスト")
 @Validated
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
-public class BillCreateDto {
+public class BillCreateReq {
 
 	@Size(max = 250)
 	@NotNull
@@ -40,10 +39,11 @@ public class BillCreateDto {
 	private BigDecimal billingAmount;
 
 	@JsonFormat(pattern = "yyyy-MM-dd")
-	@Schema(type="string" ,format = "date", example = "2020-02-17")
+	@Schema(type = "string", format = "date", example = "2020-02-17")
 	private Date activityDate;
 
 	@Valid
+	@Builder.Default
 	private List<UserBillCreateDto> users = new ArrayList<>();
 
 	public void setBill(String activityName, BigDecimal billingAmount, Date activityDate) {
