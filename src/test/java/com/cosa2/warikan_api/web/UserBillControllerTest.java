@@ -141,7 +141,7 @@ class UserBillControllerTest {
 
 		mockMvc.perform(post("/warikan").contentType(MediaType.APPLICATION_JSON).content(input))
 				.andExpect(status().isBadRequest()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.Error.Message").value("Bad Request"));
+				.andExpect(jsonPath("$.Error.Message").value("MethodArgumentNotValid"));
 	}
 
 	@Test
@@ -152,7 +152,7 @@ class UserBillControllerTest {
 
 		mockMvc.perform(post("/warikan").contentType(MediaType.APPLICATION_JSON).content(input))
 				.andExpect(status().isBadRequest()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.Error.Message").value("Bad Request"));
+				.andExpect(jsonPath("$.Error.Message").value("MethodArgumentNotValid"));
 	}
 
 	@Test
@@ -163,7 +163,7 @@ class UserBillControllerTest {
 
 		mockMvc.perform(post("/warikan").contentType(MediaType.APPLICATION_JSON).content(input))
 				.andExpect(status().isBadRequest()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
-				.andExpect(jsonPath("$.Error.Message").value("Bad Request"));
+				.andExpect(jsonPath("$.Error.Message").value("MethodArgumentNotValid"));
 	}
 
 	@Test

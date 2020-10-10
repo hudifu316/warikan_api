@@ -1,10 +1,5 @@
 package com.cosa2.warikan_api.web;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 
@@ -25,6 +20,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import com.cosa2.warikan_api.common.exception.UserBillException;
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException.Reference;
 import com.fasterxml.jackson.databind.exc.InvalidFormatException;
 
@@ -84,25 +80,27 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 
 	@Override
-	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex, HttpHeaders headers, HttpStatus status,
-			WebRequest request) {
+	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
+			HttpHeaders headers, HttpStatus status, WebRequest request) {
 
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+		ErrorResponse body = new ErrorResponse("HttpMessageNotReadable");
 
-		 Throwable t = ex.getCause();
-		  if (t instanceof InvalidFormatException) {
-		        InvalidFormatException ife = (InvalidFormatException) t;
+		Throwable t = ex.getCause();
+		if (t instanceof InvalidFormatException) {
+			InvalidFormatException ife = (InvalidFormatException) t;
 
-		        for (Reference r : ife.getPath()) {
-		            map.add(r.getFieldName(), ife.getValue()+" can't mapping to "+ife.getTargetType().getName());
-		        }
-//		        map.add(ife.getTargetType().getName(), ife.getValue().toString());
-		    }
+			for (Reference r : ife.getPath()) {
+				map.add(r.getFieldName(), ife.getValue() + " can't mapping to " + ife.getTargetType().getName());
+			}
+			body = new ErrorResponse("InvalidFormat", map);
 
-
-		ErrorResponse body = new ErrorResponse("HttpMessageNotReadable", map);
+		} else if (t instanceof JsonParseException) {
+			body = new ErrorResponse("JsonParseError");
+		}
 
 		return this.handleExceptionInternal(ex, body, headers, status, request);
+
 	}
 
 	@ExceptionHandler(ConstraintViolationException.class)

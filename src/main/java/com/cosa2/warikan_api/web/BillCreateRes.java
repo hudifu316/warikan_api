@@ -17,14 +17,13 @@ import org.springframework.validation.annotation.Validated;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Schema(description="割り勘レスポンス")
 @Validated
 @Data
-public class BillUpdateDto {
+public class BillCreateRes {
 
 	@Id
 	@NotNull

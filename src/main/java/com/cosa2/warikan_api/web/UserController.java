@@ -19,6 +19,12 @@ import com.cosa2.warikan_api.domain.model.User;
 import com.cosa2.warikan_api.domain.repository.UserRepository;
 import com.github.dozermapper.core.Mapper;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -32,18 +38,25 @@ public class UserController {
 	@PostMapping
 	@Validated
 	@ResponseStatus(HttpStatus.CREATED)
-	public UserUpdateDto postUser(@RequestBody @Valid UserCreateDto dto) {
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "201", description = "成功", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = UserCreateRes.class)) }),
+			@ApiResponse(responseCode = "400", description = "失敗", content = {
+					@Content(mediaType = "application/json", schema = @Schema(implementation = ErrorResponse.class)) }), })
+	@Operation(summary = "ユーザを作成する", description = "割り勘するユーザを予め作成する", tags = "users")
+	public UserCreateRes postUser(@RequestBody @Valid UserCreateReq dto) {
 		User user = mapper.map(dto, User.class);
 		user = userRepository.save(user);
-		return mapper.map(user, UserUpdateDto.class);
+		return mapper.map(user, UserCreateRes.class);
 	}
 
 	@GetMapping
-	public List<UserUpdateDto> getUser() {
-		List<UserUpdateDto> usersDtos = new ArrayList<>();
+	@Operation(summary = "ユーザ一覧取得", description = "ユーザ一覧を取得する", tags = "users")
+	public List<UserCreateRes> getUser() {
+		List<UserCreateRes> usersDtos = new ArrayList<>();
 		List<User> users = userRepository.findAll();
 		for (User user : users) {
-			usersDtos.add(mapper.map(user, UserUpdateDto.class));
+			usersDtos.add(mapper.map(user, UserCreateRes.class));
 		}
 		return usersDtos;
 	}
